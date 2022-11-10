@@ -1,4 +1,4 @@
-package br.edu.ifsp.ads.pdm.splitthebill
+package br.edu.ifsp.ads.pdm.splitthebill.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,5 +11,6 @@ class PayerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(apb.root)
+
     }
 }

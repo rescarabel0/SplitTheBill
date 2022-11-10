@@ -1,10 +1,13 @@
-package br.edu.ifsp.ads.pdm.splitthebill
+package br.edu.ifsp.ads.pdm.splitthebill.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
+import br.edu.ifsp.ads.pdm.splitthebill.R
 import br.edu.ifsp.ads.pdm.splitthebill.adapter.PayerAdapter
 import br.edu.ifsp.ads.pdm.splitthebill.databinding.ActivityMainBinding
 import br.edu.ifsp.ads.pdm.splitthebill.model.Payer
@@ -35,14 +38,42 @@ class MainActivity : AppCompatActivity() {
                 val payer = res.data?.getParcelableExtra<Payer>(Constants.NEW_PAYER)
 
                 payer?.let { _payer ->
-                    val position = payersList.indexOfFirst { it.id == _payer.id }
-                    if (position != -1)
-                        payersList[position] = _payer
-                    else payersList.add(_payer)
-
+                    when (res.data?.getStringExtra(Constants.ACTION_NAME)) {
+                        Constants.ACTION_ADD -> {
+                            val position = payersList.indexOfFirst { it.id == _payer.id }
+                            if (position != -1)
+                                payersList[position] = _payer
+                            else payersList.add(_payer)
+                        }
+                        Constants.ACTION_DELETE -> {
+                            payersList.remove(_payer)
+                        }
+                        Constants.ACTION_EDIT -> {
+                            val formIntent = Intent(this, FormPayerActivity::class.java)
+                            formIntent.putExtra(Constants.CURRENT_PAYER, _payer)
+                            parl.launch(formIntent)
+                        }
+                    }
                     payerAdapter.notifyDataSetChanged()
                 }
             }
+        }
+
+        registerForContextMenu(amb.mainLv)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.add_payer_mi -> {
+                parl.launch(Intent(this, FormPayerActivity::class.java))
+                true
+            }
+            else -> false
         }
     }
 
