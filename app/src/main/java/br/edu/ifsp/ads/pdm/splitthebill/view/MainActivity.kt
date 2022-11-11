@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(amb.root)
-        fillPayerList()
+//        fillPayerList()
         payerAdapter = PayerAdapter(this, payersList)
         amb.mainLv.adapter = payerAdapter
 
@@ -84,16 +84,16 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun fillPayerList() {
-        for (i in 1..5) {
-            payersList.add(
-                Payer(
-                    i,
-                    "Nome $i",
-                    i.toDouble(),
-                    "Comprou $i"
-                )
-            )
-        }
-    }
+//    private fun fillPayerList() {
+//        for (i in 1..5) {
+//            payersList.add(
+//                Payer(
+//                    i,
+//                    "Nome $i",
+//                    i.toDouble(),
+//                    "Comprou $i"
+//                )
+//            )
+//        }
+//    }
 }
