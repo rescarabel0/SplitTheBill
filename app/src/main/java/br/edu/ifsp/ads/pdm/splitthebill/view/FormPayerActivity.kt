@@ -38,7 +38,7 @@ class FormPayerActivity : AppCompatActivity() {
 
             val resIntent = Intent()
             setResult(RESULT_OK, resIntent)
-            resIntent.putExtra(Constants.NEW_PAYER, payer)
+            resIntent.putExtra(Constants.PAYER, payer)
             resIntent.putExtra(Constants.ACTION_NAME, Constants.ACTION_ADD)
             finish()
         }

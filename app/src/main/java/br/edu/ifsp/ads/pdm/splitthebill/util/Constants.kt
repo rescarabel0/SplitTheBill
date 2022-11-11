@@ -7,6 +7,6 @@ object Constants {
     const val ACTION_DELETE = "ACTION_DELETE"
 
 
-    const val NEW_PAYER = "NEW_PAYER"
+    const val PAYER = "NEW_PAYER"
     const val CURRENT_PAYER = "CURRENT_PAYER"
 }

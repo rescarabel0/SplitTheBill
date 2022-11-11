@@ -2,6 +2,7 @@ package br.edu.ifsp.ads.pdm.splitthebill.view
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
@@ -35,7 +36,7 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult(),
         ) { res ->
             if (res.resultCode == RESULT_OK) {
-                val payer = res.data?.getParcelableExtra<Payer>(Constants.NEW_PAYER)
+                val payer = res.data?.getParcelableExtra<Payer>(Constants.PAYER)
 
                 payer?.let { _payer ->
                     when (res.data?.getStringExtra(Constants.ACTION_NAME)) {
@@ -59,7 +60,13 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        registerForContextMenu(amb.mainLv)
+        amb.mainLv.setOnItemClickListener { _, _, position, _ ->
+            val payerIntent = Intent(this, PayerActivity::class.java)
+            payerIntent.putExtra(Constants.CURRENT_PAYER, payersList[position])
+            parl.launch(payerIntent)
+        }
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
