@@ -7,4 +7,10 @@
         android:title="@string/add_payer"
         app:showAsAction="ifRoom"
         />
+    <item
+        android:id="@+id/calculate_mi"
+        android:icon="@drawable/ic_calculate"
+        android:title="@string/calculate_expenses"
+        app:showAsAction="ifRoom"
+        />
 </menu>

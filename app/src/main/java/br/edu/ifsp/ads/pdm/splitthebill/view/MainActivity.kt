@@ -2,7 +2,6 @@ package br.edu.ifsp.ads.pdm.splitthebill.view
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.ActivityResultLauncher
@@ -28,7 +27,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(amb.root)
-//        fillPayerList()
+        fillPayerList()
         payerAdapter = PayerAdapter(this, payersList)
         amb.mainLv.adapter = payerAdapter
 
@@ -36,10 +35,21 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult(),
         ) { res ->
             if (res.resultCode == RESULT_OK) {
-                val payer = res.data?.getParcelableExtra<Payer>(Constants.PAYER)
+                val actionName = res.data?.getStringExtra(Constants.ACTION_NAME)
 
+                if (actionName == Constants.ACTION_CALCULATE) {
+                    val total = res.data?.getDoubleExtra(Constants.TOTAL, 0.0)
+                    total?.let { _total ->
+                        val valueForEachPayer = _total / payersList.size
+                        payersList.forEach {
+                            it.balance = -(it.paid - valueForEachPayer)
+                        }
+                    }
+                }
+
+                val payer = res.data?.getParcelableExtra<Payer>(Constants.PAYER)
                 payer?.let { _payer ->
-                    when (res.data?.getStringExtra(Constants.ACTION_NAME)) {
+                    when (actionName) {
                         Constants.ACTION_ADD -> {
                             val position = payersList.indexOfFirst { it.id == _payer.id }
                             if (position != -1)
@@ -54,9 +64,10 @@ class MainActivity : AppCompatActivity() {
                             formIntent.putExtra(Constants.CURRENT_PAYER, _payer)
                             parl.launch(formIntent)
                         }
+                        else -> null
                     }
-                    payerAdapter.notifyDataSetChanged()
                 }
+                payerAdapter.notifyDataSetChanged()
             }
         }
 
@@ -80,20 +91,25 @@ class MainActivity : AppCompatActivity() {
                 parl.launch(Intent(this, FormPayerActivity::class.java))
                 true
             }
+            R.id.calculate_mi -> {
+                parl.launch(Intent(this, CalculateExpensesActivity::class.java))
+                true
+            }
             else -> false
         }
     }
 
-//    private fun fillPayerList() {
-//        for (i in 1..5) {
-//            payersList.add(
-//                Payer(
-//                    i,
-//                    "Nome $i",
-//                    i.toDouble(),
-//                    "Comprou $i"
-//                )
-//            )
-//        }
-//    }
+    private fun fillPayerList() {
+        for (i in 1..5) {
+            payersList.add(
+                Payer(
+                    i,
+                    "Nome $i",
+                    i.toDouble(),
+                    "Comprou $i",
+                    null
+                )
+            )
+        }
+    }
 }

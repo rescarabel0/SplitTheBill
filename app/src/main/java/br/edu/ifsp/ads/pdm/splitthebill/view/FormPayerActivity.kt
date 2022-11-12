@@ -34,6 +34,7 @@ class FormPayerActivity : AppCompatActivity() {
                 apb.nameEt.text.toString(),
                 apb.paidEt.text.toString().toDouble(),
                 apb.boughtEt.text.toString(),
+                null
             )
 
             val resIntent = Intent()

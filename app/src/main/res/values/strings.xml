@@ -7,4 +7,8 @@
     <string name="add_payer">Add Payer</string>
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
+    <string name="calculate_expenses">Calculate expenses</string>
+    <string name="total_expenses">Total Expenses</string>
+    <string name="calculate">Calculate</string>
+    <string name="balance_not_yet_calculated">Balance: Not yet calculated</string>
 </resources>

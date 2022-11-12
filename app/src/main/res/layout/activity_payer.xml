@@ -10,7 +10,6 @@
     <TextView
         android:id="@+id/payer_name_tv"
         android:textSize="30sp"
-        android:text="@string/name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -26,6 +25,14 @@
     <TextView
         android:id="@+id/payer_bought_tv"
         android:textSize="30sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        />
+    <TextView
+        android:id="@+id/balance_tv"
+        android:textSize="30sp"
+        android:text="@string/balance_not_yet_calculated"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"

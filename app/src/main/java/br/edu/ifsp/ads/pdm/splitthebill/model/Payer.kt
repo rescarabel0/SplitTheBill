@@ -8,5 +8,6 @@ data class Payer(
     val id: Int,
     val name: String,
     val paid: Double,
-    val bought: String
+    val bought: String,
+    var balance: Double?
 ) : Parcelable

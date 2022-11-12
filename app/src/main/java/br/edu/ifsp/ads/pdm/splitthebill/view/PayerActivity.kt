@@ -21,6 +21,9 @@ class PayerActivity : AppCompatActivity() {
         apb.payerNameTv.text = currentPayer?.name
         apb.payerPaidTv.text = "Paid: $${currentPayer?.paid}"
         apb.payerBoughtTv.text = "Bought: ${currentPayer?.bought}"
+        if (currentPayer?.balance != null) {
+            apb.balanceTv.text= "Balance: ${currentPayer.balance}"
+        }
 
         apb.deleteBtn.setOnClickListener {
             val resIntent = Intent()
